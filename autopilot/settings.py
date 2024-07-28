@@ -15,7 +15,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/user/home/"
 LOGOUT_REDIRECT_URL = "/"
 LOGIN_URL = "/login/"
 
@@ -44,7 +44,17 @@ INSTALLED_APPS = [
     'rest_framework',
     "user",
     "postpilot",
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
 ]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
