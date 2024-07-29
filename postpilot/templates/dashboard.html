@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Dashboard</h1>
+    <ul>
+        {% for post in posts %}
+            <li>{{ post.caption }} - {{ post.scheduled_time }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'schedule_post' %}">Schedule a new post</a>
+</body>
+</html>

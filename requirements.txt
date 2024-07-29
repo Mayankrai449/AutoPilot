@@ -4,4 +4,6 @@ python-decouple
 psycopg2-binary
 django-allauth
 requests
+boto3
+django-storages
 celery
