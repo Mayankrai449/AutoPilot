@@ -1,23 +1,29 @@
 from celery import shared_task
 from .models import ScheduledPost
-import requests
 from datetime import datetime
-from django.conf import settings
+import requests
+from decouple import config
 
 @shared_task
 def publish_scheduled_posts():
     now = datetime.now()
-    scheduled_posts = ScheduledPost.objects.filter(scheduled_time__lte=now, published=False)
+    scheduled_posts = ScheduledPost.objects.filter(publish_time__lte=now, published=False)
+    
     for post in scheduled_posts:
-        image_url = f'{settings.MEDIA_URL}{post.image}'
-        response = requests.post(
-            f'https://graph.facebook.com/v14.0/{user_id}/media',
-            params={
-                'image_url': image_url,
-                'caption': post.caption,
-                'access_token': user_access_token,
-            }
-        )
+        response = publish_to_instagram(post)
+        
         if response.status_code == 200:
             post.published = True
             post.save()
+        else:
+            print(f"Failed to publish post {post.id}: {response.content}")
+
+def publish_to_instagram(post):
+    url = f"https://graph.facebook.com/v11.0/{post.instagram_user_id}/media"
+    payload = {
+        'image_url': post.image_url,
+        'caption': post.caption,
+        'access_token': config('INSTAGRAM_ACCESS_TOKEN')
+    }
+    response = requests.post(url, data=payload)
+    return response
