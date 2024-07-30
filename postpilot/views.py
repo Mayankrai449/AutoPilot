@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import ScheduledPost
 from .forms import ScheduledPostForm
-
+from django.contrib import messages
 
 @login_required
 def dashboard(request):
@@ -15,10 +15,11 @@ def schedule_post(request):
     if request.method == 'POST':
         form = ScheduledPostForm(request.POST, request.FILES)
         if form.is_valid():
-            scheduled_post = form.save(commit=False)
-            scheduled_post.user = request.user
-            scheduled_post.save()
-            return redirect('dashboard')
+            post = form.save(commit=False)
+            post.user = request.user
+            post.save()
+            messages.success(request, 'Post scheduled successfully!')
+            return redirect('post_list')
     else:
         form = ScheduledPostForm()
-    return render(request, 'schedule_post.html', {'form': form})
+    return render(request, 'post_scheduler/schedule_post.html', {'form': form})

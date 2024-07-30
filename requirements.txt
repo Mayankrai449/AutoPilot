@@ -1,9 +1,10 @@
-Django>=3.2,<4.0
+Django>=5.0.7
 djangorestframework
 python-decouple
 psycopg2-binary
 django-allauth
-requests
 boto3
 django-storages
-celery
+requests==2.31.0
+celery==5.3.1
+redis==4.6.0

@@ -2,9 +2,9 @@ import os
 from celery import Celery
 from decouple import config
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'social_media_automation.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'autopilot.settings')
 
-app = Celery('social_media_automation')
+app = Celery('autopilot')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
