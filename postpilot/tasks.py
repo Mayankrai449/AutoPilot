@@ -3,7 +3,6 @@ from celery import shared_task
 from datetime import datetime
 from .models import ScheduledPost
 from .instagram_utils import create_media_object, publish_media_object
-from django.conf import settings
 
 logger = logging.getLogger(__name__)
 
