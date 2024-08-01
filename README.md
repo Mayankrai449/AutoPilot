@@ -1,9 +1,8 @@
 # AutoPilot
-# Social Media Automation App
 
 ## Overview
 
-This Social Media Automation App is a comprehensive platform leveraging the Instagram Graph API to enable users to schedule post uploads, automate comment replies, and manage direct message responses. It provides Instagram user data analytics and utilizes AWS S3 for image storage.
+AutoPilot is a Social Media Automation App which is a comprehensive platform leveraging the Instagram Graph API to enable users to schedule post uploads, automate comment replies, and manage direct message responses. It provides Instagram user data analytics and utilizes AWS S3 for image storage.
 
 ## Features
 
