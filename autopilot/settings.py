@@ -1,8 +1,5 @@
 from pathlib import Path
-from decouple import Config
-import os
-
-config = Config('.env')
+from decouple import config
 
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
@@ -17,10 +14,12 @@ INSTAGRAM_ACCESS_TOKEN = config('INSTAGRAM_ACCESS_TOKEN')
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
 
+USE_TZ = True
+TIME_ZONE = 'Asia/Kolkata'
 
 CELERY_BEAT_SCHEDULE = {
     'publish-scheduled-posts': {
-        'task': 'scheduler.tasks.publish_scheduled_posts',
+        'task': 'scheduler.tasks.pub\qlish_scheduled_posts',
         'schedule': 60.0,
     },
 }
@@ -51,19 +50,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'rest_framework',
     "user",
     "postpilot",
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.facebook',
-    'storages',
-]
-
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 LOGIN_REDIRECT_URL = "/user/home/"

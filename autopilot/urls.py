@@ -7,5 +7,4 @@ urlpatterns = [
     path('user/', include('django.contrib.auth.urls')),
     path('user/', include('user.urls')),
     path('scheduler/', include('postpilot.urls')),
-    path('accounts/', include('allauth.urls')),
 ]

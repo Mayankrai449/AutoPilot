@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import ScheduledPost
 from .forms import ScheduledPostForm
@@ -20,7 +20,7 @@ def schedule_post(request):
             post.save()
             
             messages.success(request, 'Post scheduled successfully!')
-            return redirect('post_list')
+            return HttpResponse('Post Scheduled!')
     else:
         form = ScheduledPostForm()
         
