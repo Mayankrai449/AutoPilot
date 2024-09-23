@@ -3,24 +3,29 @@ from django.contrib.auth.decorators import login_required
 from .models import ScheduledPost
 from .forms import ScheduledPostForm
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
 
 @login_required
 def dashboard(request):
     posts = ScheduledPost.objects.filter(user=request.user)
     return render(request, 'dashboard.html', {'posts': posts})
 
-
-@login_required
+@csrf_exempt
 def schedule_post(request):
     if request.method == 'POST':
         form = ScheduledPostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
-            post.user = request.user
+            if request.user.is_authenticated:
+                post.user = request.user
+            else:
+                post.user = None
             post.save()
             
             messages.success(request, 'Post scheduled successfully!')
             return HttpResponse('Post Scheduled!')
+        else:
+            messages.error(request, 'Form submission failed. Please correct the errors below.')
     else:
         form = ScheduledPostForm()
         

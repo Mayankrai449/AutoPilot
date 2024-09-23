@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class ScheduledPost(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
     image = models.ImageField(upload_to='')
     caption = models.TextField()
     scheduled_time = models.DateTimeField()
